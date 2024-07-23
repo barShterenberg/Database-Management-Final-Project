@@ -1,0 +1,76 @@
+{%load static  %}
+<html>
+<head> <title> Form </title>
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+
+<div class="main_body">
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/Query_Results">Query Results</a></li>
+            <li><a href="/Records_Management">Records Management</a></li>
+            <li><a href="/Rankings">Rankings</a></li>
+        </ul>
+    </nav>
+</div>
+
+<h1>Records Management</h1>
+
+<form method="POST" action="Records_Management">
+    <h2>Order</h2>
+    {% csrf_token %}
+    hID: <input type="number" name="hID" maxlength="50" required max="1000000"><br>
+    title: <input type="text" name="title" maxlength="1000" required><br>
+    <button type="submit">Submit</button>
+</form>
+{% if flag == 1 %}
+    <p> <b>The family does not exist in the data base</b></p>
+{% endif %}
+{% if flag == 2 %}
+    <p> <b>The program does not exist in the data base </b></p>
+{% endif %}
+{% if flag == 3 %}
+    <p> <b>The family already have recording of three shows</b></p>
+{% endif %}
+{% if flag == 4 %}
+    <p> <b>The recording of the requested program has already been ordered by another family and has not yet been returned</b></p>
+{% endif %}
+{% if flag == 5 %}
+    <p> <b>The family now owns a recording of this show</b></p>
+{% endif %}
+{% if flag == 6 %}
+    <p> <b>The family already owned a recording of this show before</b></p>
+{% endif %}
+{% if flag == 7 %}
+    <p> <b>There are children in the family and the genre of the requested program is for adults only or reality</b></p>
+{% endif %}
+
+<form method="POST" action="return_a_order">
+    <h2>Return</h2>
+    {% csrf_token %}
+    hID: <input type="number" name="hID" maxlength="50" required max="1000000"><br>
+    title: <input type="text" name="title" maxlength="1000" required><br>
+    <button type="submit">Submit</button>
+    {% if flag2 == 1 %}
+        <p><b>The family does not exist in the data base</b></p>
+    {% endif %}
+    {% if flag2 == 2 %}
+        <p><b>The requested program does not exist or it exists but is not order by the family</b></p>
+    {% endif %}
+</form>
+
+<h2>Top 3 families</h2>
+<table border="1" width="40%">
+    <th>hID</th>
+    <th>Total Orders</th>
+    {% for content in sql_result %}
+        <tr>
+            <td>{{ content.hID }} </td>
+            <td>{{ content.count }} </td>
+        </tr>
+    {% endfor %}
+</table>
+<br><br>
+</body>
+</html>

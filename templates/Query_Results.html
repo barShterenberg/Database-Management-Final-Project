@@ -1,0 +1,49 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<div class="main_body">
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/Query_Results">Query Results</a></li>
+            <li><a href="/Records_Management">Records Management</a></li>
+            <li><a href="/Rankings">Rankings</a></li>
+        </ul>
+    </nav>
+</div>
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<h3>Query 1:</h3>
+<table border="=1" width="100%" style="width: 300px">
+    <th>Genre</th>
+    <th>Title</th>
+    <th>Duration</th>
+        {% for content in sql1_res %}
+            <tr>
+            <td>{{ content.genre}} </td>
+            <td>{{ content.title }} </td>
+            <td>{{ content.duration}} </td>
+            </tr>
+        {% endfor %}
+</table><br><br>
+
+<h3>Query 2:</h3>
+<table border="=1" width="100%" style="width: 300px">
+    <th>Title</th>
+    <th>Average Rank</th>
+        {% for content in sql2_res %}
+            <tr>
+            <td>{{ content.title}} </td>
+            <td>{{ content.Average_Rank }} </td>
+            </tr>
+        {% endfor %}
+</table><br><br>
+
+<h3>Query 3:</h3>
+<table border="=1" width="100%" style="width: 300px">
+    <th>Title</th>
+        {% for content in sql3_res %}
+            <tr>
+            <td>{{ content.title}} </td>
+            </tr>
+        {% endfor %}
+</table><br><br>

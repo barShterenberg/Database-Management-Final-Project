@@ -1,0 +1,86 @@
+{%load static  %}
+<html>
+<head> <title> Form </title>
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+
+<div class="main_body">
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/Query_Results">Query Results</a></li>
+            <li><a href="/Records_Management">Records Management</a></li>
+            <li><a href="/Rankings">Rankings</a></li>
+        </ul>
+    </nav>
+</div>
+
+<h2>Give Rankings!</h2>
+<form method="post" action="Rankings">
+    {% csrf_token %}
+    <label for="hID">hID:</label>
+    <select id="hID" name="hID" >
+    <option selected disabled>--select an option--</option>
+        {% for fhid in hid_list %}
+            <option value="{{ fhid.hID }}">{{ fhid.hID }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="title">title:</label>
+    <select id="title" name="title">
+    <option selected disabled>--select an option--</option>
+        {% for ptitle in program_list %}
+            <option value="{{ ptitle.title }}">{{ ptitle.title }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="rank">rank:</label>
+    <select id="rank" name="rank">
+        <option selected disabled>--select an option--</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+
+<h2>choose a genre and see who is the spoken programs:</h2>
+
+<form method="post" action="Rankings">
+    {% csrf_token %}
+    <label for="genre">Genre:</label>
+    <select id="genre" name="genre">
+    <option selected disabled>--select an option--</option>
+        {% for genre_from_list in genre_list %}
+            <option value="{{ genre_from_list.genre }}">{{ genre_from_list.genre }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <label for="min_rank">Minimum Rank:</label>
+    <input type="number" id="min_rank" name="min_rank">
+    <br>
+    <input type="submit" value="Submit">
+</form>
+
+<table border="1" width="40%">
+    <th>genre</th>
+    <th>Average rank</th>
+        {% for spoken_program in spoken_program_query_result %}
+            <tr>
+            <td>{{ spoken_program.title}} </td>
+            <td>{{ spoken_program.Average_Rank }} </td>
+            </tr>
+        {% endfor %}
+        {% for spoken_program_complete in spoken_program_complete_result %}
+            <tr>
+            <td>{{ spoken_program_complete.title}} </td>
+            <td>{{ spoken_program_complete.Average_Rank }} </td>
+            </tr>
+        {% endfor %}
+</table><br><br>
+
+</body>
+</html>

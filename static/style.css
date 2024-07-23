@@ -1,0 +1,27 @@
+h1, h2, h3, h4, h5, form
+{
+font-family: "comic sans ms"; 
+color: white; 
+font-style: italic
+}
+
+
+p,li,th,td
+{
+font-family: "comic sans ms"; 
+color: black; 
+text-align: left; 
+word-spacing: normal;
+}
+
+hr
+{
+color:white
+}
+
+a:link {font-family: "comic sans ms" ; color:white}
+a:visited  {color:white}
+a:active   {color:yellow}
+a:hover    {color:red}
+
+body {background-color: #B9B4B5}
